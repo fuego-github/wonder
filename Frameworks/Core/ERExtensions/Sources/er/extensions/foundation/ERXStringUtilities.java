@@ -408,8 +408,9 @@ public class ERXStringUtilities {
      */
     public static Integer integerWithString(String s) {
         try {
-            return ERXConstant.integerForString(s);
-        } catch (Exception e) {
+            return ERXConstant.integerForInt(Integer.parseInt(s));
+        } catch (NumberFormatException e) {
+        	// ignore
         }
         return null;
     } 
@@ -1084,7 +1085,11 @@ public class ERXStringUtilities {
     }
 
     /**
-     * Capitalizes a given string.
+     * Capitalizes a given string. That is, the first character of the returned
+     * string will be upper case, and other characters will be unchanged. For
+     * example, for the input string "{@code you have a dog}", this method would
+     * return "{@code You have a dog}".
+     * 
      * @param value to be capitalized
      * @return capitalized string
      */
@@ -1126,7 +1131,14 @@ public class ERXStringUtilities {
     }
     
     /**
-     * Capitalizes all the strings in a given string.
+     * Capitalizes all the strings in a given string. That is, the first
+     * character of each (whitespace-delimited) word in the input string will be
+     * upper case, and other characters will be unchanged. Additionally, each
+     * region of contiguous whitespace in the original string is converted to a
+     * single space in the result. For example, for the input string
+     * "{@code you  have  a  dog}" (with two spaces between each word), this
+     * method would return "{@code You Have A Dog}".
+     * 
      * @param value to be capitalized
      * @return capitalized string
      */    
